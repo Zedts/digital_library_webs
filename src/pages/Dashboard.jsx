@@ -13,10 +13,9 @@ import {
   FaHome,
   FaInfoCircle,
   FaRocket,
-  FaFacebook,
   FaTwitter,
   FaInstagram,
-  FaLinkedin,
+  FaGithub,
   FaUserPlus
 } from 'react-icons/fa';
 
@@ -386,17 +385,14 @@ const Dashboard = () => {
               <div className="min-w-max">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Ikuti Kami</h4>
                 <div className="flex flex-wrap gap-4">
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Facebook">
-                    <FaFacebook className="text-blue-500 hover:text-white" />
-                  </a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">
+                  <a href="https://x.com/ItzBlurb" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">
                     <FaTwitter className="text-blue-500 hover:text-white" />
                   </a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">
+                  <a href="https://www.instagram.com/royyan.hk/" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">
                     <FaInstagram className="text-blue-500 hover:text-white" />
                   </a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="LinkedIn">
-                    <FaLinkedin className="text-blue-500 hover:text-white" />
+                  <a href="https://github.com/Zedts" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="GitHub">
+                    <FaGithub className="text-blue-500 hover:text-white" />
                   </a>
                 </div>
               </div>
