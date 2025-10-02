@@ -1,4 +1,22 @@
 import React, { useState } from 'react';
+import { 
+  FaBook, 
+  FaSearch, 
+  FaMobile, 
+  FaUsers, 
+  FaChartBar, 
+  FaBookmark,
+  FaBookOpen,
+  FaGlobe,
+  FaStar,
+  FaHome,
+  FaInfoCircle,
+  FaRocket,
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin
+} from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,37 +26,37 @@ const Dashboard = () => {
   };
   const features = [
     {
-      icon: '📚',
+      icon: <FaBook className="text-blue-500" />,
       title: 'Koleksi Digital Lengkap',
       description: 'Akses ribuan buku digital, jurnal, dan artikel penelitian dari berbagai kategori dan bidang ilmu.',
       highlight: 'Lebih dari 125k+ koleksi'
     },
     {
-      icon: '🔍',
+      icon: <FaSearch className="text-blue-500" />,
       title: 'Pencarian Cerdas',
       description: 'Temukan buku yang Anda butuhkan dengan sistem pencarian yang canggih dan filter yang detail.',
       highlight: 'AI-Powered Search'
     },
     {
-      icon: '📱',
+      icon: <FaMobile className="text-blue-500" />,
       title: 'Akses Multi-Platform',
       description: 'Baca koleksi digital kapan saja, di mana saja melalui smartphone, tablet, atau komputer Anda.',
       highlight: 'iOS, Android & Web'
     },
     {
-      icon: '👥',
+      icon: <FaUsers className="text-blue-500" />,
       title: 'Komunitas Pembaca',
       description: 'Bergabung dengan komunitas pembaca, berbagi review, dan dapatkan rekomendasi buku terbaik.',
       highlight: '89k+ Member Aktif'
     },
     {
-      icon: '📊',
+      icon: <FaChartBar className="text-blue-500" />,
       title: 'Statistik Membaca',
       description: 'Pantau progress membaca Anda dengan statistik yang detail dan pencapaian yang menarik.',
       highlight: 'Real-time Analytics'
     },
     {
-      icon: '🔖',
+      icon: <FaBookmark className="text-blue-500" />,
       title: 'Bookmark & Notes',
       description: 'Simpan halaman favorit dan buat catatan pribadi untuk referensi di masa mendatang.',
       highlight: 'Cloud Sync'
@@ -47,42 +65,42 @@ const Dashboard = () => {
 
   const stats = [
     { 
-      icon: '📚', 
+      icon: <FaBook className="text-blue-500" />, 
       number: '125,847+', 
       label: 'Koleksi Digital',
       description: 'Buku, jurnal, artikel & e-magazine',
       growth: '+12% bulan ini'
     },
     { 
-      icon: '👥', 
+      icon: <FaUsers className="text-blue-500" />, 
       number: '89,542', 
       label: 'Pengguna Aktif',
       description: 'Member terdaftar & aktif membaca',
       growth: '+847 minggu ini'
     },
     { 
-      icon: '📖', 
+      icon: <FaBookOpen className="text-blue-500" />, 
       number: '2,847,920', 
       label: 'Total Bacaan',
       description: 'Halaman yang telah dibaca',
       growth: '+15k hari ini'
     },
     { 
-      icon: '🌍', 
+      icon: <FaGlobe className="text-blue-500" />, 
       number: '247', 
       label: 'Negara Terjangkau',
       description: 'Akses global 24/7',
       growth: '99.9% uptime'
     },
     { 
-      icon: '⭐', 
+      icon: <FaStar className="text-blue-500" />, 
       number: '4.9/5', 
       label: 'Rating Pengguna',
       description: 'Dari 45,200+ ulasan',
       growth: 'Meningkat 0.3 poin'
     },
     { 
-      icon: '🔍', 
+      icon: <FaSearch className="text-blue-500" />, 
       number: '1.2M+', 
       label: 'Pencarian Harian',
       description: 'Query pencarian per hari',
@@ -124,24 +142,34 @@ const Dashboard = () => {
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white m-0">Menu</h3>
               </div>
               <a href="#hero" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 inline-block">🏠</span>
+                <span className="text-xl w-6 flex items-center justify-center">
+                  <FaHome />
+                </span>
                 Beranda
               </a>
               <a href="#stats" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 inline-block">📊</span>
+                <span className="text-xl w-6 flex items-center justify-center">
+                  <FaChartBar />
+                </span>
                 Statistik
               </a>
               <a href="#features" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 inline-block">⭐</span>
+                <span className="text-xl w-6 flex items-center justify-center">
+                  <FaStar />
+                </span>
                 Fitur
               </a>
               <a href="#about" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 inline-block">ℹ️</span>
+                <span className="text-xl w-6 flex items-center justify-center">
+                  <FaInfoCircle />
+                </span>
                 Tentang
               </a>
               <div className="h-px bg-gray-200 dark:bg-gray-700 my-6"></div>
-              <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full justify-center flex items-center gap-2" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 inline-block">🚀</span>
+              <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full gap-2" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 flex items-center justify-center">
+                  <FaRocket />
+                </span>
                 Masuk
               </button>
             </div>
@@ -174,11 +202,14 @@ const Dashboard = () => {
           <div className="mt-8">
             <div className="relative h-72">
               <div className="relative w-full h-full">
-                <div className="absolute text-5xl animate-float top-8 left-8" style={{ animationDelay: '0s' }}>📖</div>
-                <div className="absolute text-5xl animate-float top-4 right-16" style={{ animationDelay: '0.5s' }}>📚</div>
-                <div className="absolute text-5xl animate-float bottom-16 left-1/3" style={{ animationDelay: '1s' }}>📓</div>
-                <div className="absolute text-5xl animate-float bottom-8 right-8" style={{ animationDelay: '1.5s' }}>📔</div>
-                <div className="absolute text-4xl animate-float top-1/2 left-4" style={{ animationDelay: '2s' }}>📄</div>
+                <img src="/star.png" alt="Star" className="absolute w-12 h-12 animate-float top-8 left-8 opacity-80 brightness-0 saturate-100 filter" style={{ animationDelay: '0s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-8 h-8 animate-float top-4 right-16 opacity-70 brightness-0 saturate-100 filter" style={{ animationDelay: '0.5s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-20 h-20 animate-float bottom-16 left-1/3 opacity-90 brightness-0 saturate-100 filter" style={{ animationDelay: '1s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-6 h-6 animate-float bottom-8 right-8 opacity-60 brightness-0 saturate-100 filter" style={{ animationDelay: '1.5s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-4 h-4 animate-float top-1/2 left-4 opacity-50 brightness-0 saturate-100 filter" style={{ animationDelay: '2s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-16 h-16 animate-float top-1/3 right-1/3 opacity-85 brightness-0 saturate-100 filter" style={{ animationDelay: '2.5s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-10 h-10 animate-float bottom-1/3 right-1/4 opacity-75 brightness-0 saturate-100 filter" style={{ animationDelay: '3s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
+                <img src="/star.png" alt="Star" className="absolute w-14 h-14 animate-float top-1/4 left-1/2 opacity-65 brightness-0 saturate-100 filter" style={{ animationDelay: '3.5s', filter: 'brightness(0) saturate(100%) invert(47%) sepia(77%) saturate(2476%) hue-rotate(200deg) brightness(97%) contrast(101%)' }} />
               </div>
             </div>
           </div>
@@ -199,8 +230,10 @@ const Dashboard = () => {
             {stats.map((stat, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 shadow-md dark:shadow-xl transition-all duration-300 text-center animate-fade-in hover:transform hover:-translate-y-2 hover:scale-105 hover:shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
-                <div className="text-5xl mb-4 opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
-                  {stat.icon}
+                <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-blue-50 dark:bg-blue-900/20 rounded-full opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
+                  <div className="text-3xl">
+                    {stat.icon}
+                  </div>
                 </div>
                 <h3 className="text-3xl md:text-4xl lg:text-5xl mb-2 font-extrabold leading-tight bg-gradient-to-br from-blue-500 to-blue-600 bg-clip-text text-transparent">{stat.number}</h3>
                 <p className="text-lg font-bold text-gray-900 dark:text-white mb-2">{stat.label}</p>
@@ -228,10 +261,12 @@ const Dashboard = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 shadow-md dark:shadow-xl transition-all duration-300 text-center animate-fade-in hover:transform hover:-translate-y-2 hover:scale-105 relative overflow-hidden group">
+              <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 shadow-md dark:shadow-xl transition-all duration-300 text-center animate-fade-in hover:transform hover:-translate-y-2 hover:scale-105 hover:shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
-                <div className="text-5xl mb-4 opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
-                  {feature.icon}
+                <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-blue-50 dark:bg-blue-900/20 rounded-full opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
+                  <div className="text-3xl">
+                    {feature.icon}
+                  </div>
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug mb-4">{feature.description}</p>
@@ -270,7 +305,9 @@ const Dashboard = () => {
                   <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-24 h-24 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
                   <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-48 h-48 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20" style={{ animationDelay: '-5s' }}></div>
                   <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-72 h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10" style={{ animationDelay: '-10s' }}></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-blue-500">📚</div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-blue-500">
+                    <FaBook />
+                  </div>
                 </div>
               </div>
             </div>
@@ -300,7 +337,9 @@ const Dashboard = () => {
           <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12">
             <div className="flex-1 max-w-sm">
               <div className="flex items-center gap-4 mb-4">
-                <div className="text-2xl">📖</div>
+                <div className="text-2xl text-blue-500">
+                  <FaBook />
+                </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Digital Library</h3>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
@@ -332,10 +371,18 @@ const Dashboard = () => {
               <div className="min-w-max">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Ikuti Kami</h4>
                 <div className="flex flex-wrap gap-4">
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Facebook">📘</a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">🐦</a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">📷</a>
-                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="LinkedIn">💼</a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Facebook">
+                    <FaFacebook className="text-blue-500 hover:text-white" />
+                  </a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">
+                    <FaTwitter className="text-blue-500 hover:text-white" />
+                  </a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">
+                    <FaInstagram className="text-blue-500 hover:text-white" />
+                  </a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="LinkedIn">
+                    <FaLinkedin className="text-blue-500 hover:text-white" />
+                  </a>
                 </div>
               </div>
             </div>
