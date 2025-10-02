@@ -1,7 +1,7 @@
 import React from 'react'
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeProvider } from './context/ThemeContext.jsx'
 import Dashboard from './pages/Dashboard'
-import './style/index.css'
+import './style/main.css'
 
 function App() {
   return (

@@ -91,55 +91,57 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="dashboard">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Header/Navigation */}
-      <header className="header">
-        <nav className="container flex justify-between items-center" style={{ padding: 'var(--space-lg) var(--space-md)' }}>
-          <div className="logo flex items-center gap-4">
-            <div className="logo-icon">📖</div>
-            <h1 className="logo-text">Digital Library</h1>
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 backdrop-blur-md">
+        <nav className="max-w-screen-large mx-auto px-4 flex justify-between items-center py-6">
+          <div className="flex items-center gap-4">
+            <div className="text-2xl">📖</div>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white mb-0">Digital Library</h1>
           </div>
           
-          <div className="nav-links flex items-center gap-6">
-            <a href="#hero" className="nav-link smooth-scroll">Beranda</a>
-            <a href="#stats" className="nav-link smooth-scroll">Statistik</a>
-            <a href="#features" className="nav-link smooth-scroll">Fitur</a>
-            <a href="#about" className="nav-link smooth-scroll">Tentang</a>
-            <button className="btn btn-primary">Masuk</button>
+          <div className="hidden md:flex items-center gap-6">
+            <a href="#hero" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Beranda</a>
+            <a href="#stats" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Statistik</a>
+            <a href="#features" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Fitur</a>
+            <a href="#about" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Tentang</a>
+            <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px">
+              Login
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+          <button className="block md:hidden bg-transparent border-none text-xl text-gray-900 dark:text-white cursor-pointer z-[60] fixed right-4 top-6 transition-all duration-300 hover:scale-110" onClick={toggleMobileMenu}>
             {isMobileMenuOpen ? '✕' : '☰'}
           </button>
         </nav>
         
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="mobile-nav-overlay" onClick={toggleMobileMenu}>
-            <div className="mobile-nav-menu" onClick={(e) => e.stopPropagation()}>
-              <div className="mobile-nav-header">
-                <h3 className="mobile-nav-title">Menu</h3>
+          <div className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-60 backdrop-blur-sm z-50 animate-fade-in" onClick={toggleMobileMenu}>
+            <div className="fixed top-0 right-0 w-80 h-screen bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 shadow-xl p-8 flex flex-col gap-4 z-50 pt-24" onClick={(e) => e.stopPropagation()}>
+              <div className="pb-6 border-b border-gray-200 dark:border-gray-700 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white m-0">Menu</h3>
               </div>
-              <a href="#hero" className="mobile-nav-link smooth-scroll" onClick={toggleMobileMenu}>
-                <span className="nav-icon">🏠</span>
+              <a href="#hero" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 inline-block">🏠</span>
                 Beranda
               </a>
-              <a href="#stats" className="mobile-nav-link smooth-scroll" onClick={toggleMobileMenu}>
-                <span className="nav-icon">📊</span>
+              <a href="#stats" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 inline-block">📊</span>
                 Statistik
               </a>
-              <a href="#features" className="mobile-nav-link smooth-scroll" onClick={toggleMobileMenu}>
-                <span className="nav-icon">⭐</span>
+              <a href="#features" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 inline-block">⭐</span>
                 Fitur
               </a>
-              <a href="#about" className="mobile-nav-link smooth-scroll" onClick={toggleMobileMenu}>
-                <span className="nav-icon">ℹ️</span>
+              <a href="#about" className="text-gray-900 dark:text-white text-base font-medium no-underline p-4 rounded-md transition-all duration-300 flex items-center gap-4 border-l-2 border-transparent hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-l-blue-500 hover:transform hover:translate-x-1" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 inline-block">ℹ️</span>
                 Tentang
               </a>
-              <div className="mobile-nav-divider"></div>
-              <button className="btn btn-primary mobile-nav-btn" onClick={toggleMobileMenu}>
-                <span className="nav-icon">🚀</span>
+              <div className="h-px bg-gray-200 dark:bg-gray-700 my-6"></div>
+              <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full justify-center flex items-center gap-2" onClick={toggleMobileMenu}>
+                <span className="text-xl w-6 inline-block">🚀</span>
                 Masuk
               </button>
             </div>
@@ -148,34 +150,35 @@ const Dashboard = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="hero section">
-        <div className="container text-center">
-          <div className="hero-content fade-in">
-            <h1 className="hero-title mb-6">
+      <section id="hero" className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen flex items-center py-16">
+        <div className="max-w-screen-large mx-auto px-4 text-center">
+          <div className="animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
               Selamat Datang di Era Baru 
-              <span className="text-accent"> Perpustakaan Digital</span>
+              <span className="text-blue-500"> Perpustakaan Digital</span>
             </h1>
-            <p className="hero-description mb-8">
+            <p className="text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-8 text-gray-600 dark:text-gray-300">
               Jelajahi ribuan koleksi buku digital, jurnal, dan artikel penelitian terbaru. 
               Akses pengetahuan tak terbatas dengan teknologi modern yang mudah digunakan.
             </p>
-            <div className="hero-buttons flex justify-center gap-4">
-              <a href="#features" className="btn btn-primary btn-large smooth-scroll">
+            <div className="flex flex-col md:flex-row justify-center gap-4">
+              <a href="#features" className="inline-flex items-center justify-center px-8 py-4 border-none rounded-full text-lg font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full md:w-auto max-w-xs mx-auto md:mx-0 smooth-scroll">
                 Mulai Eksplorasi
               </a>
-              <a href="#about" className="btn btn-secondary btn-large smooth-scroll">
+              <a href="#about" className="inline-flex items-center justify-center px-8 py-4 border border-gray-300 dark:border-gray-600 rounded-full text-lg font-semibold cursor-pointer transition-all duration-300 no-underline text-gray-900 dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 w-full md:w-auto max-w-xs mx-auto md:mx-0 smooth-scroll">
                 Pelajari Lebih Lanjut
               </a>
             </div>
           </div>
           
-          <div className="hero-image mt-8">
-            <div className="hero-visual">
-              <div className="floating-books">
-                <div className="book book-1">📖</div>
-                <div className="book book-2">📚</div>
-                <div className="book book-3">📓</div>
-                <div className="book book-4">📔</div>
+          <div className="mt-8">
+            <div className="relative h-72">
+              <div className="relative w-full h-full">
+                <div className="absolute text-5xl animate-float top-8 left-8" style={{ animationDelay: '0s' }}>📖</div>
+                <div className="absolute text-5xl animate-float top-4 right-16" style={{ animationDelay: '0.5s' }}>📚</div>
+                <div className="absolute text-5xl animate-float bottom-16 left-1/3" style={{ animationDelay: '1s' }}>📓</div>
+                <div className="absolute text-5xl animate-float bottom-8 right-8" style={{ animationDelay: '1.5s' }}>📔</div>
+                <div className="absolute text-4xl animate-float top-1/2 left-4" style={{ animationDelay: '2s' }}>📄</div>
               </div>
             </div>
           </div>
@@ -183,26 +186,27 @@ const Dashboard = () => {
       </section>
 
       {/* Statistics Section */}
-      <section id="stats" className="stats-section section">
-        <div className="container">
-          <div className="section-header text-center mb-8">
-            <h2 className="section-title mb-4">Digital Library Stats</h2>
-            <p className="section-description">
+            <section id="stats" className="bg-white dark:bg-gray-900 py-16">
+        <div className="max-w-screen-large mx-auto px-4">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4">Digital Library Stats</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Lihat pencapaian dan pertumbuhan platform perpustakaan digital terdepan di Indonesia
             </p>
           </div>
           
-          <div className="stats-grid grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
             {stats.map((stat, index) => (
-              <div key={index} className="stat-card card text-center fade-in">
-                <div className="stat-icon mb-3" style={{ fontSize: '2.5rem' }}>
+              <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 shadow-md dark:shadow-xl transition-all duration-300 text-center animate-fade-in hover:transform hover:-translate-y-2 hover:scale-105 hover:shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
+                <div className="text-5xl mb-4 opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
                   {stat.icon}
                 </div>
-                <h3 className="stat-number text-accent font-bold mb-2">{stat.number}</h3>
-                <p className="stat-label font-semibold mb-2">{stat.label}</p>
-                <p className="stat-description text-secondary mb-2">{stat.description}</p>
-                <div className="stat-growth">
-                  <span className="growth-indicator text-accent font-medium">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl mb-2 font-extrabold leading-tight bg-gradient-to-br from-blue-500 to-blue-600 bg-clip-text text-transparent">{stat.number}</h3>
+                <p className="text-lg font-bold text-gray-900 dark:text-white mb-2">{stat.label}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug mb-4">{stat.description}</p>
+                <div className="mt-2">
+                  <span className="text-xs px-2 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-200 dark:border-blue-800 font-semibold inline-block text-blue-500">
                     {stat.growth}
                   </span>
                 </div>
@@ -213,25 +217,26 @@ const Dashboard = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="features-section section">
-        <div className="container">
-          <div className="section-header text-center mb-8">
-            <h2 className="section-title mb-4">Fitur Unggulan</h2>
-            <p className="section-description">
+      <section id="features" className="py-16">
+        <div className="max-w-screen-large mx-auto px-4">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4">Fitur Unggulan</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Nikmati berbagai fitur canggih yang dirancang khusus untuk memberikan pengalaman membaca terbaik
             </p>
           </div>
           
-          <div className="features-grid grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
             {features.map((feature, index) => (
-              <div key={index} className="feature-card card text-center fade-in">
-                <div className="feature-icon mb-3" style={{ fontSize: '2.5rem' }}>
+              <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 shadow-md dark:shadow-xl transition-all duration-300 text-center animate-fade-in hover:transform hover:-translate-y-2 hover:scale-105 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
+                <div className="text-5xl mb-4 opacity-90 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100">
                   {feature.icon}
                 </div>
-                <h3 className="feature-title font-bold mb-2">{feature.title}</h3>
-                <p className="feature-description text-secondary mb-2">{feature.description}</p>
-                <div className="feature-highlight">
-                  <span className="highlight-indicator text-accent font-medium">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug mb-4">{feature.description}</p>
+                <div className="mt-2">
+                  <span className="text-xs px-2 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-200 dark:border-blue-800 font-semibold inline-block text-blue-500">
                     {feature.highlight}
                   </span>
                 </div>
@@ -242,30 +247,30 @@ const Dashboard = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="about-section section">
-        <div className="container">
-          <div className="about-content grid grid-cols-2 gap-8 items-center">
-            <div className="about-text">
-              <h2 className="section-title mb-6">Tentang Digital Library</h2>
-              <p className="mb-4">
+      <section id="about" className="bg-gray-100 dark:bg-gray-800 py-16">
+        <div className="max-w-screen-large mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-6">Tentang Digital Library</h2>
+              <p className="mb-4 text-gray-600 dark:text-gray-300">
                 Digital Library adalah platform perpustakaan digital modern yang menghubungkan 
                 pengguna dengan koleksi literatur terlengkap dan terbaru. Kami berkomitmen untuk 
                 menyediakan akses mudah dan cepat ke berbagai sumber pengetahuan.
               </p>
-              <p className="mb-6">
+              <p className="mb-6 text-gray-600 dark:text-gray-300">
                 Dengan teknologi pencarian yang canggih dan antarmuka yang user-friendly, 
                 kami memastikan setiap pengguna dapat menemukan informasi yang mereka butuhkan 
                 dengan mudah dan efisien.
               </p>
-              <a href="#hero" className="btn btn-primary smooth-scroll">Bergabung Sekarang</a>
+              <a href="#hero" className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px smooth-scroll">Bergabung Sekarang</a>
             </div>
-            <div className="about-image">
-              <div className="about-visual">
-                <div className="visual-element">
-                  <div className="circle circle-1"></div>
-                  <div className="circle circle-2"></div>
-                  <div className="circle circle-3"></div>
-                  <div className="center-icon">📚</div>
+            <div className="">
+              <div className="relative h-96 flex items-center justify-center">
+                <div className="relative w-72 h-72">
+                  <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-24 h-24 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+                  <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-48 h-48 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20" style={{ animationDelay: '-5s' }}></div>
+                  <div className="absolute border-2 border-blue-500 rounded-full animate-rotate w-72 h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10" style={{ animationDelay: '-10s' }}></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-blue-500">📚</div>
                 </div>
               </div>
             </div>
@@ -274,77 +279,77 @@ const Dashboard = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section section">
-        <div className="container">
-          <div className="cta-content card text-center">
-            <h2 className="cta-title mb-4">Siap Memulai Perjalanan Literasi Digital?</h2>
-            <p className="cta-description mb-6 text-secondary">
+      <section className="bg-gradient-to-br from-blue-500 to-blue-600 py-16">
+        <div className="max-w-screen-large mx-auto px-4">
+          <div className="bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 p-12 rounded-lg text-center">
+            <h2 className="text-white text-3xl md:text-4xl lg:text-5xl mb-4">Siap Memulai Perjalanan Literasi Digital?</h2>
+            <p className="text-white text-opacity-90 text-lg mb-6">
               Daftarkan diri Anda sekarang dan nikmati akses tak terbatas ke ribuan koleksi buku digital terbaik.
             </p>
-            <div className="cta-buttons flex justify-center gap-4">
-              <a href="#hero" className="btn btn-primary btn-large smooth-scroll">Daftar Gratis</a>
-              <a href="#features" className="btn btn-ghost smooth-scroll">Lihat Demo</a>
+            <div className="flex flex-col md:flex-row justify-center gap-4">
+              <a href="#hero" className="inline-flex items-center justify-center px-8 py-4 border-none rounded-full text-lg font-semibold cursor-pointer transition-all duration-300 no-underline bg-white text-blue-500 hover:bg-white hover:bg-opacity-90 hover:transform hover:-translate-y-1 w-full md:w-auto max-w-xs mx-auto md:mx-0 smooth-scroll">Daftar Gratis</a>
+              <a href="#features" className="inline-flex items-center justify-center px-8 py-4 border border-white border-opacity-30 rounded-full text-lg font-semibold cursor-pointer transition-all duration-300 no-underline text-white hover:bg-white hover:bg-opacity-10 w-full md:w-auto max-w-xs mx-auto md:mx-0 smooth-scroll">Lihat Demo</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <div className="footer-logo flex items-center gap-4 mb-4">
-                <div className="logo-icon">📖</div>
-                <h3>Digital Library</h3>
+      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-12 pb-6">
+        <div className="max-w-screen-large mx-auto px-4">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
+            <div className="flex-1 max-w-sm">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="text-2xl">📖</div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Digital Library</h3>
               </div>
-              <p className="text-secondary">
+              <p className="text-gray-600 dark:text-gray-300">
                 Platform perpustakaan digital terdepan untuk akses literatur modern dan komprehensif.
               </p>
             </div>
             
-            <div className="footer-links-group">
-              <div className="footer-links">
-                <h4 className="footer-title mb-4">Layanan</h4>
-                <ul className="link-list horizontal">
-                  <li><a href="#" className="footer-link">Koleksi Buku</a></li>
-                  <li><a href="#" className="footer-link">Jurnal Digital</a></li>
-                  <li><a href="#" className="footer-link">E-Magazine</a></li>
-                  <li><a href="#" className="footer-link">Audio Books</a></li>
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <div className="min-w-max">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Layanan</h4>
+                <ul className="list-none p-0 flex flex-wrap gap-4">
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Koleksi Buku</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Jurnal Digital</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">E-Magazine</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Audio Books</a></li>
                 </ul>
               </div>
               
-              <div className="footer-links">
-                <h4 className="footer-title mb-4">Bantuan</h4>
-                <ul className="link-list horizontal">
-                  <li><a href="#" className="footer-link">FAQ</a></li>
-                  <li><a href="#" className="footer-link">Panduan</a></li>
-                  <li><a href="#" className="footer-link">Kontak Support</a></li>
-                  <li><a href="#" className="footer-link">Lapor Bug</a></li>
+              <div className="min-w-max">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Bantuan</h4>
+                <ul className="list-none p-0 flex flex-wrap gap-4">
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">FAQ</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Panduan</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Kontak Support</a></li>
+                  <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Lapor Bug</a></li>
                 </ul>
               </div>
               
-              <div className="footer-links">
-                <h4 className="footer-title mb-4">Ikuti Kami</h4>
-                <div className="social-links flex gap-4">
-                  <a href="#" className="social-link" aria-label="Facebook">📘</a>
-                  <a href="#" className="social-link" aria-label="Twitter">🐦</a>
-                  <a href="#" className="social-link" aria-label="Instagram">📷</a>
-                  <a href="#" className="social-link" aria-label="LinkedIn">💼</a>
+              <div className="min-w-max">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Ikuti Kami</h4>
+                <div className="flex gap-4">
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Facebook">📘</a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">🐦</a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">📷</a>
+                  <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="LinkedIn">💼</a>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="footer-bottom">
-            <div className="footer-bottom-content flex justify-between items-center">
-              <p className="text-secondary">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+              <p className="text-gray-600 dark:text-gray-300">
                 © 2024 Digital Library. Semua hak cipta dilindungi.
               </p>
-              <div className="footer-bottom-links flex gap-6">
-                <a href="#" className="footer-link">Privasi</a>
-                <a href="#" className="footer-link">Syarat & Ketentuan</a>
-                <a href="#" className="footer-link">Cookie Policy</a>
+              <div className="flex gap-6">
+                <a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Privasi</a>
+                <a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Syarat & Ketentuan</a>
+                <a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Cookie Policy</a>
               </div>
             </div>
           </div>
