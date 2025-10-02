@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaBook, 
   FaSearch, 
@@ -15,7 +16,8 @@ import {
   FaFacebook,
   FaTwitter,
   FaInstagram,
-  FaLinkedin
+  FaLinkedin,
+  FaUserPlus
 } from 'react-icons/fa';
 
 const Dashboard = () => {
@@ -123,9 +125,14 @@ const Dashboard = () => {
             <a href="#stats" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Statistik</a>
             <a href="#features" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Fitur</a>
             <a href="#about" className="text-gray-600 dark:text-gray-300 font-medium px-4 py-2 rounded-md transition-all duration-300 hover:text-gray-900 dark:hover:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20 no-underline">Tentang</a>
-            <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px">
-              Login
-            </button>
+            <div className="flex items-center gap-3">
+              <Link to="/register" className="inline-flex items-center justify-center px-6 py-2 border border-blue-500 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:transform hover:-translate-y-px">
+                Daftar
+              </Link>
+              <Link to="/login" className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px">
+                Login
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -166,12 +173,20 @@ const Dashboard = () => {
                 Tentang
               </a>
               <div className="h-px bg-gray-200 dark:bg-gray-700 my-6"></div>
-              <button className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full gap-2" onClick={toggleMobileMenu}>
-                <span className="text-xl w-6 flex items-center justify-center">
-                  <FaRocket />
-                </span>
-                Masuk
-              </button>
+              <div className="flex flex-col gap-3">
+                <Link to="/register" className="inline-flex items-center justify-center px-6 py-2 border border-blue-500 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:transform hover:-translate-y-px w-full gap-2" onClick={toggleMobileMenu}>
+                  <span className="text-xl w-6 flex items-center justify-center">
+                    <FaUserPlus />
+                  </span>
+                  Daftar
+                </Link>
+                <Link to="/login" className="inline-flex items-center justify-center px-6 py-2 border-none rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 no-underline bg-blue-500 text-white hover:bg-blue-600 hover:transform hover:-translate-y-px w-full gap-2" onClick={toggleMobileMenu}>
+                  <span className="text-xl w-6 flex items-center justify-center">
+                    <FaRocket />
+                  </span>
+                  Masuk
+                </Link>
+              </div>
             </div>
           </div>
         )}
