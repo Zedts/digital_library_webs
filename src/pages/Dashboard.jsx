@@ -297,7 +297,7 @@ const Dashboard = () => {
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-12 pb-6">
         <div className="max-w-screen-large mx-auto px-4">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12">
             <div className="flex-1 max-w-sm">
               <div className="flex items-center gap-4 mb-4">
                 <div className="text-2xl">📖</div>
@@ -308,10 +308,10 @@ const Dashboard = () => {
               </p>
             </div>
             
-            <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex flex-col md:flex-row gap-8 items-start md:items-start">
               <div className="min-w-max">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Layanan</h4>
-                <ul className="list-none p-0 flex flex-wrap gap-4">
+                <ul className="list-none p-0 flex flex-col gap-2">
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Koleksi Buku</a></li>
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Jurnal Digital</a></li>
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">E-Magazine</a></li>
@@ -321,7 +321,7 @@ const Dashboard = () => {
               
               <div className="min-w-max">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Bantuan</h4>
-                <ul className="list-none p-0 flex flex-wrap gap-4">
+                <ul className="list-none p-0 flex flex-col gap-2">
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">FAQ</a></li>
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Panduan</a></li>
                   <li><a href="#" className="text-gray-600 dark:text-gray-300 no-underline transition-colors duration-300 hover:text-blue-500">Kontak Support</a></li>
@@ -331,7 +331,7 @@ const Dashboard = () => {
               
               <div className="min-w-max">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Ikuti Kami</h4>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                   <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Facebook">📘</a>
                   <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Twitter">🐦</a>
                   <a href="#" className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-md text-lg no-underline transition-all duration-300 hover:bg-blue-500 hover:text-white hover:transform hover:-translate-y-1" aria-label="Instagram">📷</a>
