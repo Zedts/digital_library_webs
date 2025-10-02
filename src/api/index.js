@@ -2,7 +2,7 @@ import axios from 'axios';
 import { hashPassword } from './hashPassword.js';
 
 // Base API URL using server IP
-const API_BASE_URL = 'http://172.22.9.210:3000/api';
+const API_BASE_URL = 'http://192.168.1.138:3000/api';
 
 // Create axios instance
 const api = axios.create({
@@ -41,6 +41,35 @@ export const authAPI = {
         email,
         password: hashedPassword
       });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  }
+};
+
+// Dashboard API functions
+export const dashboardAPI = {
+  // Get admin dashboard data
+  getAdminDashboard: async () => {
+    try {
+      const response = await api.get('/dashboard/admin');
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Get user dashboard data
+  getUserDashboard: async (userId) => {
+    try {
+      const response = await api.get(`/dashboard/user/${userId}`);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {

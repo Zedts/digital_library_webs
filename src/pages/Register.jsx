@@ -99,7 +99,6 @@ const Register = () => {
       );
 
       if (response.success) {
-        alert(response.message || 'Registrasi berhasil! Akun Anda akan diaktifkan setelah mendapat persetujuan admin.');
         navigate('/login'); // Redirect to login page
       }
     } catch (error) {

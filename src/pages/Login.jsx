@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaArrowLeft, FaUserPlus } from 'react-icons/fa';
 import { authAPI } from '../api';
 
 const Login = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (token && user) {
+      const parsedUser = JSON.parse(user);
+      // Redirect based on role
+      if (parsedUser.role === 'admin') {
+        navigate('/admin/home');
+      } else if (parsedUser.role === 'users') {
+        navigate('/user/home');
+      }
+    }
+  }, [navigate]);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -38,9 +54,18 @@ const Login = () => {
       const response = await authAPI.login(formData.email, formData.password);
 
       if (response.success) {
-        // Login successful
-        alert(`Selamat datang, ${response.data.name}!`);
-        navigate('/dashboard');
+        // Store token and user data
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data));
+
+        // Redirect based on user role
+        if (response.data.role === 'admin') {
+          navigate('/admin/home');
+        } else if (response.data.role === 'users') {
+          navigate('/user/home');
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       console.error('Login error:', error);
