@@ -6,6 +6,10 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import AdminHome from './pages/Admin/Home'
 import UserHome from './pages/Users/Home'
+import AdminBooks from './pages/Admin/Books'
+import AdminCreateBook from './pages/Admin/CreateBook'
+import AdminEditBook from './pages/Admin/EditBook'
+import AdminBookDetail from './pages/Admin/BookDetail'
 import './style/main.css'
 
 function App() {
@@ -17,6 +21,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/admin/books" element={<AdminBooks />} />
+          <Route path="/admin/books/create" element={<AdminCreateBook />} />
+          <Route path="/admin/books/edit/:id" element={<AdminEditBook />} />
+          <Route path="/admin/books/:id" element={<AdminBookDetail />} />
           <Route path="/user/home" element={<UserHome />} />
         </Routes>
       </Router>
