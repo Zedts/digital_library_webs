@@ -35,7 +35,6 @@ const SidebarAdmin = ({
     { icon: <FaBook />, label: 'Books', key: 'books', link: '/admin/books' },
     { icon: <FaUsers />, label: 'Users', key: 'users', link: '#' },
     { icon: <FaBookOpen />, label: 'Borrows', key: 'borrows', link: '#' },
-    { icon: <FaList />, label: 'Categories', key: 'categories', link: '#' },
     { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '#' }
   ];
 
