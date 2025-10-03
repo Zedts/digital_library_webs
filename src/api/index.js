@@ -83,13 +83,14 @@ export const dashboardAPI = {
 // Books API functions
 export const booksAPI = {
   // Get all books with pagination and filters
-  getBooks: async (page = 1, limit = 10, search = '', category = '') => {
+  getBooks: async (page = 1, limit = 10, search = '', category = '', stock = '') => {
     try {
       const params = new URLSearchParams();
       params.append('page', page);
       params.append('limit', limit);
       if (search) params.append('search', search);
       if (category) params.append('category', category);
+      if (stock) params.append('stock', stock);
       
       const response = await api.get(`/books?${params}`);
       return response.data;
@@ -117,7 +118,18 @@ export const booksAPI = {
   // Create new book (admin only)
   createBook: async (bookData) => {
     try {
-      const response = await api.post('/books', bookData);
+      // Check if it's FormData (for file uploads)
+      const isFormData = bookData instanceof FormData;
+      
+      const config = {};
+      if (isFormData) {
+        // For FormData
+        config.headers = {
+          'Content-Type': 'multipart/form-data'
+        };
+      }
+      
+      const response = await api.post('/books', bookData, config);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -130,7 +142,18 @@ export const booksAPI = {
   // Update book (admin only)
   updateBook: async (bookId, bookData) => {
     try {
-      const response = await api.put(`/books/${bookId}`, bookData);
+      // Check if it's FormData (for file uploads)
+      const isFormData = bookData instanceof FormData;
+      
+      const config = {};
+      if (isFormData) {
+        // For FormData
+        config.headers = {
+          'Content-Type': 'multipart/form-data'
+        };
+      }
+      
+      const response = await api.put(`/books/${bookId}`, bookData, config);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -157,6 +180,61 @@ export const booksAPI = {
   getCategories: async () => {
     try {
       const response = await api.get('/categories');
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  }
+};
+
+// Categories API functions
+export const categoriesAPI = {
+  // Get all categories
+  getCategories: async () => {
+    try {
+      const response = await api.get('/categories');
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Create new category (admin only)
+  createCategory: async (categoryData) => {
+    try {
+      const response = await api.post('/categories', categoryData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Update category (admin only)
+  updateCategory: async (categoryId, categoryData) => {
+    try {
+      const response = await api.put(`/categories/${categoryId}`, categoryData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Delete category (admin only)
+  deleteCategory: async (categoryId) => {
+    try {
+      const response = await api.delete(`/categories/${categoryId}`);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {

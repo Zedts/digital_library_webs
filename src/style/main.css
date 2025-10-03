@@ -14,6 +14,17 @@ section[id] {
 }
 
 /* Animation keyframes */
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -28,4 +39,204 @@ section[id] {
 /* Animation classes */
 .animate-fade-in {
   animation: fade-in 0.6s ease-out;
+}
+
+/* React Toastify custom styles */
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  font-family: inherit;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E1E8ED;
+  backdrop-filter: blur(8px);
+  font-size: 14px;
+  padding: 16px;
+  min-height: 64px;
+  margin-bottom: 8px;
+}
+
+/* Light theme toast styles */
+.Toastify__toast--success {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 4px solid #10b981;
+  color: #14171A;
+}
+
+.Toastify__toast--error {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 4px solid #ef4444;
+  color: #14171A;
+}
+
+.Toastify__toast--info {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 4px solid #1DA1F2;
+  color: #14171A;
+}
+
+.Toastify__toast--warning {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 4px solid #f59e0b;
+  color: #14171A;
+}
+
+/* Progress bar styles for light theme */
+.Toastify__progress-bar--success {
+  background: #10b981;
+}
+
+.Toastify__progress-bar--error {
+  background: #ef4444;
+}
+
+.Toastify__progress-bar--info {
+  background: #1DA1F2;
+}
+
+.Toastify__progress-bar--warning {
+  background: #f59e0b;
+}
+
+/* Close button styling */
+.Toastify__close-button {
+  color: #657786;
+  opacity: 0.7;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* Dark theme toast styles */
+.dark .Toastify__toast {
+  background: rgba(34, 48, 60, 0.95);
+  border: 1px solid #22303C;
+  color: #FFFFFF;
+}
+
+.dark .Toastify__toast--success {
+  background: rgba(34, 48, 60, 0.95);
+  border-left: 4px solid #10b981;
+  color: #FFFFFF;
+}
+
+.dark .Toastify__toast--error {
+  background: rgba(34, 48, 60, 0.95);
+  border-left: 4px solid #ef4444;
+  color: #FFFFFF;
+}
+
+.dark .Toastify__toast--info {
+  background: rgba(34, 48, 60, 0.95);
+  border-left: 4px solid #1DA1F2;
+  color: #FFFFFF;
+}
+
+.dark .Toastify__toast--warning {
+  background: rgba(34, 48, 60, 0.95);
+  border-left: 4px solid #f59e0b;
+  color: #FFFFFF;
+}
+
+/* Dark theme close button */
+.dark .Toastify__close-button {
+  color: #AAB8C2;
+  opacity: 0.7;
+}
+
+.dark .Toastify__close-button:hover {
+  opacity: 1;
+  color: #FFFFFF;
+}
+
+/* Animation improvements */
+.Toastify__toast-enter {
+  transform: translateX(100%);
+}
+
+.Toastify__toast-enter--bottom {
+  transform: translateY(100%);
+}
+
+.Toastify__toast-exit {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Custom toast content styling */
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.Toastify__toast-icon {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Success icon color */
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #10b981;
+}
+
+/* Error icon color */
+.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #ef4444;
+}
+
+/* Info icon color */
+.Toastify__toast--info .Toastify__toast-icon svg {
+  fill: #1DA1F2;
+}
+
+/* Warning icon color */
+.Toastify__toast--warning .Toastify__toast-icon svg {
+  fill: #f59e0b;
+}
+
+/* Custom Confirmation Modal Styles */
+.confirmation-modal-overlay {
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease-in-out;
+}
+
+.confirmation-modal-content {
+  animation: confirmationModalSlideIn 0.3s ease-out;
+}
+
+@keyframes confirmationModalSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Custom button focus styles for confirmation modal */
+.confirmation-modal button:focus {
+  outline: 2px solid #1DA1F2;
+  outline-offset: 2px;
+}
+
+/* Enhanced shadow for modal */
+.confirmation-modal-shadow {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.dark .confirmation-modal-shadow {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }

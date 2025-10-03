@@ -15,6 +15,9 @@ import {
 import { useTheme } from '../../hooks/useTheme.js';
 import { booksAPI } from '../../api/index.js';
 import SidebarAdmin from '../../components/SidebarAdmin.jsx';
+import ConfirmationModal from '../../components/ConfirmationModal.jsx';
+import useConfirmation from '../../hooks/useConfirmation.js';
+import { toast } from 'react-toastify';
 
 const AdminBookDetail = () => {
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ const AdminBookDetail = () => {
   const [userData, setUserData] = useState(null);
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { confirmationState, showConfirmation, hideConfirmation, handleConfirm } = useConfirmation();
 
   // Handle window resize
   useEffect(() => {
@@ -48,12 +52,12 @@ const AdminBookDetail = () => {
       if (response.success) {
         setBook(response.data);
       } else {
-        alert('Book not found');
+        toast.error('Book not found');
         navigate('/admin/books');
       }
     } catch (error) {
       console.error('Error fetching book data:', error);
-      alert('Error loading book data');
+      toast.error('Failed to load book data');
       navigate('/admin/books');
     } finally {
       setLoading(false);
@@ -81,17 +85,25 @@ const AdminBookDetail = () => {
   }, [navigate, fetchBookData]);
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this book?')) {
-      try {
-        const response = await booksAPI.deleteBook(id);
-        if (response.success) {
-          alert('Book deleted successfully');
-          navigate('/admin/books');
+    showConfirmation({
+      title: "Delete Book",
+      message: "Are you sure you want to delete this book? This action cannot be undone and you will be redirected to the books page.",
+      confirmText: "Delete",
+      cancelText: "Cancel",
+      confirmButtonColor: "red",
+      onConfirm: async () => {
+        try {
+          const response = await booksAPI.deleteBook(id);
+          if (response.success) {
+            // Navigate immediately since we're leaving the page
+            navigate('/admin/books');
+            toast.success('Book has been deleted successfully!');
+          }
+        } catch (error) {
+          toast.error('Failed to delete book: ' + error.message);
         }
-      } catch (error) {
-        alert('Error deleting book: ' + error.message);
       }
-    }
+    });
   };
 
   if (!userData || loading) {
@@ -172,14 +184,28 @@ const AdminBookDetail = () => {
                 theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
               }`}>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
-                  {/* Book Cover Placeholder */}
+                  {/* Book Cover */}
                   <div className="flex-shrink-0 mb-6 lg:mb-0">
-                    <div className={`w-48 h-64 mx-auto lg:mx-0 rounded-lg flex items-center justify-center ${
+                    <div className={`w-48 h-64 mx-auto lg:mx-0 rounded-lg overflow-hidden ${
                       theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
                     }`}>
-                      <FaBook className={`text-6xl ${
-                        theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
-                      }`} />
+                      {book.image_url ? (
+                        <img 
+                          src={book.image_url.startsWith('http') ? book.image_url : `http://172.22.11.208:3000${book.image_url}`}
+                          alt={book.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentNode.innerHTML = `<div class="w-full h-full flex items-center justify-center"><svg class="text-6xl ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}" fill="currentColor" viewBox="0 0 20 20" style="width: 4rem; height: 4rem;"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>`;
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FaBook className={`text-6xl ${
+                            theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                          }`} />
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -403,6 +429,20 @@ const AdminBookDetail = () => {
                         </span>
                       </div>
                     )}
+                    {book.isbn && (
+                      <div>
+                        <span className={`text-sm font-medium block mb-1 ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        }`}>
+                          ISBN
+                        </span>
+                        <span className={`text-sm ${
+                          theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          {book.isbn}
+                        </span>
+                      </div>
+                    )}
                     <div>
                       <span className={`text-sm font-medium block mb-1 ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
@@ -440,6 +480,19 @@ const AdminBookDetail = () => {
           )}
         </main>
       </div>
+      
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={confirmationState.isOpen}
+        onClose={hideConfirmation}
+        onConfirm={handleConfirm}
+        title={confirmationState.title}
+        message={confirmationState.message}
+        confirmText={confirmationState.confirmText}
+        cancelText={confirmationState.cancelText}
+        confirmButtonColor={confirmationState.confirmButtonColor}
+        theme={theme}
+      />
     </div>
   );
 };

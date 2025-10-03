@@ -4,11 +4,16 @@ import {
   FaBars,
   FaSave,
   FaTimes,
-  FaArrowLeft
+  FaArrowLeft,
+  FaImage,
+  FaLink,
+  FaUpload,
+  FaEye
 } from 'react-icons/fa';
 import { useTheme } from '../../hooks/useTheme.js';
 import { booksAPI } from '../../api/index.js';
 import SidebarAdmin from '../../components/SidebarAdmin.jsx';
+import { toast } from 'react-toastify';
 
 const AdminEditBook = () => {
   const navigate = useNavigate();
@@ -32,6 +37,10 @@ const AdminEditBook = () => {
     location: '',
     description: ''
   });
+  const [coverType, setCoverType] = useState('url');
+  const [coverUrl, setCoverUrl] = useState('');
+  const [coverFile, setCoverFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
 
   // Handle window resize
@@ -78,13 +87,21 @@ const AdminEditBook = () => {
           location: book.location || '',
           description: book.description || ''
         });
+        
+        // Set image data if available
+        if (book.image_url) {
+          setCoverType('url');
+          setCoverUrl(book.image_url);
+          const fullImageUrl = book.image_url.startsWith('http') ? book.image_url : `http://172.22.11.208:3000${book.image_url}`;
+          setImagePreview(fullImageUrl);
+        }
       } else {
-        alert('Book not found');
+        toast.error('Book not found');
         navigate('/admin/books');
       }
     } catch (error) {
       console.error('Error fetching book data:', error);
-      alert('Error loading book data');
+      toast.error('Failed to load book data');
       navigate('/admin/books');
     } finally {
       setInitialLoading(false);
@@ -127,6 +144,38 @@ const AdminEditBook = () => {
     }
   };
 
+  const handleCoverTypeChange = (type) => {
+    setCoverType(type);
+    setCoverUrl('');
+    setCoverFile(null);
+    setImagePreview(null);
+  };
+
+  const handleCoverUrlChange = (e) => {
+    const url = e.target.value;
+    setCoverUrl(url);
+    if (url) {
+      setImagePreview(url);
+    } else {
+      setImagePreview(null);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCoverFile(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setCoverFile(null);
+      setImagePreview(null);
+    }
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -138,9 +187,7 @@ const AdminEditBook = () => {
       newErrors.author = 'Author is required';
     }
 
-    if (!formData.category_id) {
-      newErrors.category_id = 'Category is required';
-    }
+    // Category is optional - no validation needed
 
     if (!formData.stock || formData.stock < 0) {
       newErrors.stock = 'Valid stock quantity is required';
@@ -167,15 +214,35 @@ const AdminEditBook = () => {
 
     setLoading(true);
     try {
-      const response = await booksAPI.updateBook(id, formData);
+      // Create FormData for multipart/form-data submission
+      const submitData = new FormData();
+      
+      // Add all form fields
+      Object.keys(formData).forEach(key => {
+        if (formData[key] !== '') {
+          submitData.append(key, formData[key]);
+        }
+      });
+      
+      // Add cover type and image data
+      submitData.append('cover_type', coverType);
+      
+      if (coverType === 'url' && coverUrl) {
+        submitData.append('cover_url', coverUrl);
+      } else if (coverType === 'file' && coverFile) {
+        submitData.append('cover_file', coverFile);
+      }
+
+      const response = await booksAPI.updateBook(id, submitData);
       if (response.success) {
-        alert('Book updated successfully!');
-        navigate('/admin/books');
+        toast.success('Book has been updated successfully!');
+        // Navigate after showing notification
+        setTimeout(() => navigate(`/admin/books/${id}`), 1500);
       } else {
-        alert('Error updating book: ' + response.message);
+        toast.error('Failed to update book: ' + response.message);
       }
     } catch (error) {
-      alert('Error updating book: ' + error.message);
+      toast.error('Failed to update book: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -387,7 +454,7 @@ const AdminEditBook = () => {
                   <label className={`block text-sm font-medium mb-2 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-700'
                   }`}>
-                    Category *
+                    Category
                   </label>
                   <select
                     name="category_id"
@@ -476,6 +543,115 @@ const AdminEditBook = () => {
                     }`}
                     placeholder="Enter book description"
                   />
+                </div>
+
+                {/* Book Cover */}
+                <div className="md:col-span-2">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-700'
+                  }`}>
+                    <FaImage className="inline mr-2 text-blue-500" />
+                    Book Cover
+                  </label>
+                  
+                  {/* Cover Type Selection */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <button
+                      type="button"
+                      onClick={() => handleCoverTypeChange('url')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors font-medium ${
+                        coverType === 'url'
+                          ? theme === 'dark'
+                            ? 'bg-blue-600 border-blue-600 text-white'
+                            : 'bg-blue-600 border-blue-600 text-white'
+                          : theme === 'dark'
+                            ? 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                            : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <FaLink className="text-sm" />
+                      URL
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCoverTypeChange('file')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors font-medium ${
+                        coverType === 'file'
+                          ? theme === 'dark'
+                            ? 'bg-blue-600 border-blue-600 text-white'
+                            : 'bg-blue-600 border-blue-600 text-white'
+                          : theme === 'dark'
+                            ? 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                            : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <FaUpload className="text-sm" />
+                      Upload File
+                    </button>
+                  </div>
+
+                  {/* URL Input */}
+                  {coverType === 'url' && (
+                    <div className="mb-4">
+                      <label className={`block text-sm font-medium mb-2 ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        <FaLink className="inline mr-1 text-blue-400" />
+                        Cover URL
+                      </label>
+                      <input
+                        type="url"
+                        value={coverUrl}
+                        onChange={handleCoverUrlChange}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          theme === 'dark' 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
+                            : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                        }`}
+                        placeholder="https://example.com/book-cover.jpg"
+                      />
+                    </div>
+                  )}
+
+                  {/* File Upload */}
+                  {coverType === 'file' && (
+                    <div className="mb-4">
+                      <label className={`block text-sm font-medium mb-2 ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        <FaUpload className="inline mr-1 text-blue-400" />
+                        Upload Cover
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className={`block w-full text-sm ${
+                          theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
+                        } file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors`}
+                      />
+                    </div>
+                  )}
+
+                  {/* Image Preview */}
+                  {imagePreview && (
+                    <div className="mt-4">
+                      <label className={`block text-sm font-medium mb-2 ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        <FaEye className="inline mr-1 text-green-500" />
+                        Preview
+                      </label>
+                      <div className="relative inline-block">
+                        <img
+                          src={imagePreview}
+                          alt="Book cover preview"
+                          className="w-32 h-48 object-cover rounded-lg border-2 border-gray-300 dark:border-gray-600 shadow-md"
+                          onError={() => setImagePreview(null)}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
