@@ -9,7 +9,8 @@ import {
   FaUser,
   FaArrowRight,
   FaList,
-  FaUserCheck
+  FaUserCheck,
+  FaCog
 } from 'react-icons/fa';
 import { useTheme } from '../hooks/useTheme.js';
 
@@ -35,7 +36,8 @@ const SidebarAdmin = ({
     { icon: <FaBook />, label: 'Books', key: 'books', link: '/admin/books' },
     { icon: <FaUsers />, label: 'Users', key: 'users', link: '#' },
     { icon: <FaBookOpen />, label: 'Borrows', key: 'borrows', link: '#' },
-    { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '#' }
+    { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '#' },
+    { icon: <FaCog />, label: 'Settings', key: 'settings', link: '#' }
   ];
 
   return (
