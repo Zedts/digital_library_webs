@@ -241,14 +241,14 @@ const AdminBooks = () => {
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <FaPlus className="text-sm" />
-                Add Category
+                <span className="hidden sm:inline">Add Category</span>
               </button>
               <button
                 onClick={() => navigate('/admin/books/create')}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <FaPlus className="text-sm" />
-                Add New Book
+                <span className="hidden sm:inline">Add New Book</span>
               </button>
             </div>
           </div>
