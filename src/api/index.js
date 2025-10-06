@@ -360,4 +360,78 @@ export const borrowingsAPI = {
   }
 };
 
+// Registration API functions
+export const registrationAPI = {
+  // Get all registration requests with pagination and filters
+  getRegistrations: async (page = 1, limit = 10, status = '', search = '') => {
+    try {
+      const params = new URLSearchParams();
+      params.append('page', page);
+      params.append('limit', limit);
+      if (status) params.append('status', status);
+      if (search) params.append('search', search);
+
+      const response = await api.get(`/registrations?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Get registration by ID
+  getRegistrationById: async (registrationId) => {
+    try {
+      const response = await api.get(`/registrations/${registrationId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Approve registration request (admin only)
+  approveRegistration: async (registrationId) => {
+    try {
+      const response = await api.put(`/registrations/${registrationId}/approve`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Reject registration request (admin only)
+  rejectRegistration: async (registrationId) => {
+    try {
+      const response = await api.put(`/registrations/${registrationId}/reject`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Delete registration request (admin only)
+  deleteRegistration: async (registrationId) => {
+    try {
+      const response = await api.delete(`/registrations/${registrationId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  }
+};
+
 export default api;

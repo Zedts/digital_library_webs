@@ -46,18 +46,18 @@ const ConfirmationModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 confirmation-modal-overlay flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div 
-        className={`rounded-xl confirmation-modal-shadow max-w-md w-full mx-4 confirmation-modal-content ${
+        className={`rounded-xl shadow-xl max-w-md w-full mx-4 ${
           theme === 'dark' 
-            ? 'bg-dark-bg-tertiary border border-dark-border' 
-            : 'bg-white border border-light-border'
+            ? 'bg-gray-800 border border-gray-700' 
+            : 'bg-white border border-gray-200'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className={`px-6 py-4 border-b ${
-          theme === 'dark' ? 'border-dark-border' : 'border-light-border'
+          theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
         }`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -67,7 +67,7 @@ const ConfirmationModal = ({
                 <FaExclamationTriangle className={`text-lg ${getIconColor()}`} />
               </div>
               <h3 className={`text-lg font-semibold ${
-                theme === 'dark' ? 'text-dark-text-primary' : 'text-light-text-primary'
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 {title}
               </h3>
@@ -76,8 +76,8 @@ const ConfirmationModal = ({
               onClick={onClose}
               className={`p-2 rounded-lg transition-colors ${
                 theme === 'dark' 
-                  ? 'hover:bg-gray-700 text-dark-text-secondary hover:text-dark-text-primary' 
-                  : 'hover:bg-gray-100 text-light-text-secondary hover:text-light-text-primary'
+                  ? 'hover:bg-gray-700 text-gray-400 hover:text-white' 
+                  : 'hover:bg-gray-100 text-gray-500 hover:text-gray-700'
               }`}
             >
               <FaTimes className="text-sm" />
@@ -88,7 +88,7 @@ const ConfirmationModal = ({
         {/* Content */}
         <div className="px-6 py-4">
           <p className={`text-sm leading-relaxed ${
-            theme === 'dark' ? 'text-dark-text-secondary' : 'text-light-text-secondary'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             {message}
           </p>
@@ -96,23 +96,20 @@ const ConfirmationModal = ({
 
         {/* Actions */}
         <div className={`px-6 py-4 border-t flex items-center justify-end space-x-3 ${
-          theme === 'dark' ? 'border-dark-border' : 'border-light-border'
+          theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
         }`}>
           <button
             onClick={onClose}
             className={`px-4 py-2 border rounded-lg font-medium transition-colors duration-200 ${
               theme === 'dark'
-                ? 'border-dark-border text-dark-text-secondary hover:bg-gray-700 hover:text-dark-text-primary'
-                : 'border-light-border text-light-text-secondary hover:bg-gray-50 hover:text-light-text-primary'
+                ? 'border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white'
+                : 'border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900'
             }`}
           >
             {cancelText}
           </button>
           <button
-            onClick={() => {
-              onConfirm();
-              onClose();
-            }}
+            onClick={onConfirm}
             className={`${getConfirmButtonStyles()} focus:outline-none focus:ring-2 focus:ring-offset-2`}
           >
             {confirmText}

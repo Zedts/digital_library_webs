@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   FaBook, 
@@ -10,7 +10,9 @@ import {
   FaUserCheck,
   FaCog
 } from 'react-icons/fa';
+import Badge from '@mui/material/Badge';
 import { useTheme } from '../hooks/useTheme.js';
+import api from '../api/index.js';
 
 const SidebarAdmin = ({ 
   isSidebarOpen, 
@@ -22,6 +24,28 @@ const SidebarAdmin = ({
 }) => {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const [pendingCount, setPendingCount] = useState(0);
+
+  // Fetch pending registration count
+  const fetchPendingCount = async () => {
+    try {
+      const response = await api.get('/registrations/pending');
+      if (response.data.success) {
+        setPendingCount(response.data.data.length);
+      }
+    } catch (error) {
+      console.error('Error fetching pending registrations count:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (userData?.role === 'admin') {
+      fetchPendingCount();
+      // Fetch every 30 seconds to keep count updated
+      const interval = setInterval(fetchPendingCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [userData]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -33,7 +57,7 @@ const SidebarAdmin = ({
     { icon: <FaHome />, label: 'Dashboard', key: 'dashboard', link: '/admin/home' },
     { icon: <FaBook />, label: 'Books', key: 'books', link: '/admin/books' },
     { icon: <FaBookOpen />, label: 'Borrows', key: 'borrows', link: '/admin/borrows' },
-    { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '#' },
+    { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '/admin/registration-requests' },
     { icon: <FaCog />, label: 'Settings', key: 'settings', link: '#' }
   ];
 
@@ -84,20 +108,31 @@ const SidebarAdmin = ({
         {/* Navigation Menu */}
         <nav className="flex-1 px-6 py-6 space-y-2">
           {menuItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.link}
-              className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors group ${
-                item.key === activeMenu
-                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-                  : theme === 'dark'
-                    ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-              }`}
-            >
-              <span className="text-lg">{item.icon}</span>
-              {!isSidebarCollapsed && <span className="font-medium">{item.label}</span>}
-            </a>
+            <div key={index} className="relative">
+              <a
+                href={item.link}
+                className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors group ${
+                  item.key === activeMenu
+                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
+                    : theme === 'dark'
+                      ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                }`}
+              >
+                <span className="text-lg">{item.icon}</span>
+                {!isSidebarCollapsed && <span className="font-medium">{item.label}</span>}
+              </a>
+              {item.key === 'registration' && pendingCount > 0 && !isSidebarCollapsed && (
+                <div className="absolute -top-4 -right-1">
+                  <Badge badgeContent={pendingCount} color="primary" />
+                </div>
+              )}
+              {item.key === 'registration' && pendingCount > 0 && isSidebarCollapsed && (
+                <div className="absolute -top-4 -right-1">
+                  <Badge badgeContent={pendingCount} color="primary" />
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
