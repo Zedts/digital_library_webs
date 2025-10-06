@@ -92,7 +92,7 @@ const AdminEditBook = () => {
         if (book.image_url) {
           setCoverType('url');
           setCoverUrl(book.image_url);
-          const fullImageUrl = book.image_url.startsWith('http') ? book.image_url : `http://172.22.11.208:3000${book.image_url}`; // Update with your server's IP address
+          const fullImageUrl = book.image_url.startsWith('http') ? book.image_url : `http://172.22.14.221:3000${book.image_url}`; // Update with your server's IP address
           setImagePreview(fullImageUrl);
         }
       } else {

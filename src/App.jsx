@@ -12,6 +12,8 @@ import AdminBooks from './pages/Admin/Books'
 import AdminCreateBook from './pages/Admin/CreateBook'
 import AdminEditBook from './pages/Admin/EditBook'
 import AdminBookDetail from './pages/Admin/BookDetail'
+import AdminBorrows from './pages/Admin/Borrows'
+import AdminBorrowDetail from './pages/Admin/BorrowDetail'
 import './style/main.css'
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route path="/admin/books/create" element={<AdminCreateBook />} />
           <Route path="/admin/books/edit/:id" element={<AdminEditBook />} />
           <Route path="/admin/books/:id" element={<AdminBookDetail />} />
+          <Route path="/admin/borrows" element={<AdminBorrows />} />
+          <Route path="/admin/borrows/:id" element={<AdminBorrowDetail />} />
           <Route path="/user/home" element={<UserHome />} />
         </Routes>
         <ToastContainer

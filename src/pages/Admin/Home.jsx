@@ -20,6 +20,18 @@ import {
   FaCalendar,
   FaExclamationTriangle
 } from 'react-icons/fa';
+import { 
+  LineChart, 
+  Line, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer 
+} from 'recharts';
 import { useTheme } from '../../hooks/useTheme.js';
 import { dashboardAPI } from '../../api/index.js';
 import SidebarAdmin from '../../components/SidebarAdmin.jsx';
@@ -191,101 +203,211 @@ const AdminHome = () => {
               <div className="p-6 border-b border-gray-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                   <h2 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                    Recent Activities
+                    Activity Trends (Last 7 Days)
                   </h2>
-                  <a href="#" className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
-                    View all <FaArrowRight className="text-xs" />
-                  </a>
                 </div>
               </div>
               <div className="p-6">
-                <div className="space-y-4">
-                  {dashboardData?.recentActivities?.length > 0 ? (
-                    dashboardData.recentActivities.map((activity, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className={`p-2 rounded-lg ${
-                          theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
-                        }`}>
-                          <FaUser className={`text-sm ${
-                            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                          }`} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-medium ${
-                            theme === 'dark' ? 'text-white' : 'text-gray-900'
-                          }`}>
-                            {activity.user}
-                          </p>
-                          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                            {activity.book}
-                          </p>
-                          <div className="mt-1 flex items-center space-x-2">
-                            <span className={`inline-flex px-2 py-1 text-xs rounded-full font-medium ${
-                              activity.status === 'pending' ? 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                              activity.status === 'borrowed' ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                              activity.status === 'returned' ? 'bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-300' :
-                              'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                            }`}>
-                              {activity.status}
-                            </span>
-                            <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-                              {activity.date}
-                            </span>
-                          </div>
-                        </div>
+                {dashboardData?.activityTrends?.length > 0 ? (
+                  <div>
+                    <ResponsiveContainer width="100%" height={250}>
+                      <LineChart data={dashboardData.activityTrends}>
+                        <CartesianGrid 
+                          strokeDasharray="3 3" 
+                          stroke={theme === 'dark' ? '#374151' : '#E5E7EB'} 
+                          opacity={0.3}
+                        />
+                        <XAxis 
+                          dataKey="date" 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ 
+                            fill: theme === 'dark' ? '#9CA3AF' : '#6B7280', 
+                            fontSize: 12 
+                          }}
+                        />
+                        <YAxis 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ 
+                            fill: theme === 'dark' ? '#9CA3AF' : '#6B7280', 
+                            fontSize: 12 
+                          }}
+                        />
+                        <Tooltip 
+                          contentStyle={{
+                            backgroundColor: theme === 'dark' ? '#1F2937' : '#FFFFFF',
+                            border: `1px solid ${theme === 'dark' ? '#374151' : '#E5E7EB'}`,
+                            borderRadius: '8px',
+                            color: theme === 'dark' ? '#F3F4F6' : '#111827',
+                            fontSize: '12px'
+                          }}
+                        />
+                        <Legend 
+                          wrapperStyle={{
+                            color: theme === 'dark' ? '#F3F4F6' : '#111827',
+                            fontSize: '12px'
+                          }}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="requests" 
+                          stroke="#3B82F6" 
+                          strokeWidth={2}
+                          dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                          name="Requests"
+                          opacity={0.8}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="borrows" 
+                          stroke="#10B981" 
+                          strokeWidth={2}
+                          dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
+                          name="Borrows"
+                          opacity={0.8}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="returns" 
+                          stroke="#8B5CF6" 
+                          strokeWidth={2}
+                          dot={{ fill: '#8B5CF6', strokeWidth: 2, r: 4 }}
+                          name="Returns"
+                          opacity={0.8}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                    <div className="mt-3 flex flex-wrap justify-center gap-4 text-xs">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-green-500 opacity-80"></div>
+                        <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Borrows</span>
                       </div>
-                    ))
-                  ) : (
-                    <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                      <FaBookOpen className="mx-auto text-4xl mb-2 opacity-50" />
-                      <p>No recent activities</p>
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-blue-500 opacity-80"></div>
+                        <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Requests</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-purple-500 opacity-80"></div>
+                        <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Returns</span>
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <FaChartBar className="mx-auto text-4xl mb-2 opacity-50" />
+                    <p>No activity data available</p>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Quick Stats */}
-            <div className={`rounded-xl shadow-sm border p-6 ${
+            {/* System Overview */}
+            <div className={`rounded-xl shadow-sm border overflow-hidden ${
               theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
             }`}>
-              <h2 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                System Overview
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
-                  <div className="flex items-center space-x-2">
-                    <FaExclamationTriangle className="text-red-500" />
-                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Overdue Books
-                    </span>
+              <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+                <h2 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                  System Overview
+                </h2>
+              </div>
+              <div className="p-6">
+                {dashboardData?.systemOverview?.chartData?.length > 0 ? (
+                  <div>
+                    <ResponsiveContainer width="100%" height={250}>
+                      <BarChart data={dashboardData.systemOverview.chartData}>
+                        <CartesianGrid 
+                          strokeDasharray="3 3" 
+                          stroke={theme === 'dark' ? '#374151' : '#E5E7EB'} 
+                          opacity={0.3}
+                        />
+                        <XAxis 
+                          dataKey="status" 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ 
+                            fill: theme === 'dark' ? '#9CA3AF' : '#6B7280', 
+                            fontSize: 12 
+                          }}
+                        />
+                        <YAxis 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ 
+                            fill: theme === 'dark' ? '#9CA3AF' : '#6B7280', 
+                            fontSize: 12 
+                          }}
+                        />
+                        <Tooltip 
+                          contentStyle={{
+                            backgroundColor: theme === 'dark' ? '#1F2937' : '#FFFFFF',
+                            border: `1px solid ${theme === 'dark' ? '#374151' : '#E5E7EB'}`,
+                            borderRadius: '8px',
+                            color: theme === 'dark' ? '#F3F4F6' : '#111827',
+                            fontSize: '12px'
+                          }}
+                        />
+                        <Bar 
+                          dataKey="count" 
+                          fill="#3B82F6"
+                          opacity={0.8}
+                          radius={[4, 4, 0, 0]}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                      <div className="flex items-center gap-2 p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
+                        <FaExclamationTriangle className="text-red-500 text-sm" />
+                        <div>
+                          <div className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                            Overdue: {dashboardData?.systemOverview?.chartData?.find(item => item.status === 'Overdue')?.count || 0}
+                          </div>
+                          <div className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                            Books overdue
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+                        <FaClock className="text-yellow-500 text-sm" />
+                        <div>
+                          <div className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                            Due Today: {dashboardData?.systemOverview?.chartData?.find(item => item.status === 'Due Today')?.count || 0}
+                          </div>
+                          <div className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                            Books due today
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 rounded-lg bg-green-50 dark:bg-green-900/20">
+                        <FaBookOpen className="text-green-500 text-sm" />
+                        <div>
+                          <div className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                            Active: {dashboardData?.systemOverview?.chartData?.find(item => item.status === 'Active')?.count || 0}
+                          </div>
+                          <div className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                            Active borrows
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                        <FaUser className="text-blue-500 text-sm" />
+                        <div>
+                          <div className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                            Pending: {dashboardData?.systemOverview?.chartData?.find(item => item.status === 'Pending')?.count || 0}
+                          </div>
+                          <div className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                            Pending requests
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-sm font-bold text-red-600">
-                    {dashboardData?.systemOverview?.overdueBooksCount || 0}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
-                  <div className="flex items-center space-x-2">
-                    <FaClock className="text-yellow-500" />
-                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Due Today
-                    </span>
+                ) : (
+                  <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <FaChartBar className="mx-auto text-4xl mb-2 opacity-50" />
+                    <p>No system overview data available</p>
                   </div>
-                  <span className="text-sm font-bold text-yellow-600">
-                    {dashboardData?.systemOverview?.dueTodayCount || 0}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
-                  <div className="flex items-center space-x-2">
-                    <FaUsers className="text-green-500" />
-                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      New Users This Week
-                    </span>
-                  </div>
-                  <span className="text-sm font-bold text-green-600">
-                    {dashboardData?.systemOverview?.newUsersThisWeekCount || 0}
-                  </span>
-                </div>
+                )}
               </div>
             </div>
           </div>

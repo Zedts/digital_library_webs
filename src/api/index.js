@@ -2,7 +2,7 @@ import axios from 'axios';
 import { hashPassword } from './hashPassword.js';
 
 // Base API URL using server IP
-const API_BASE_URL = 'http://172.22.11.208:3000/api'; // Update with your server's IP address
+const API_BASE_URL = 'http://172.22.14.221:3000/api'; // Update with your server's IP address
 
 // Create axios instance
 const api = axios.create({
@@ -235,6 +235,121 @@ export const categoriesAPI = {
   deleteCategory: async (categoryId) => {
     try {
       const response = await api.delete(`/categories/${categoryId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  }
+};
+
+// Borrowings API functions
+export const borrowingsAPI = {
+  // Get all borrowings with pagination and filters
+  getBorrowings: async (page = 1, limit = 10, status = '', search = '') => {
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString()
+      });
+      
+      if (status) params.append('status', status);
+      if (search) params.append('search', search);
+      
+      const response = await api.get(`/borrowings?${params}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Get borrowing by ID
+  getBorrowingById: async (borrowingId) => {
+    try {
+      const response = await api.get(`/borrowings/${borrowingId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Create new borrowing request
+  createBorrowing: async (borrowingData) => {
+    try {
+      const response = await api.post('/borrowings', borrowingData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Update borrowing status (approve/reject)
+  updateBorrowingStatus: async (borrowingId, statusData) => {
+    try {
+      const response = await api.put(`/borrowings/${borrowingId}/status`, statusData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Return book
+  returnBook: async (borrowingId, returnData) => {
+    try {
+      const response = await api.put(`/borrowings/${borrowingId}/return`, returnData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Extend borrowing period
+  extendBorrowing: async (borrowingId, extensionData) => {
+    try {
+      const response = await api.put(`/borrowings/${borrowingId}/extend`, extensionData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Delete borrowing
+  deleteBorrowing: async (borrowingId) => {
+    try {
+      const response = await api.delete(`/borrowings/${borrowingId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('Network error occurred');
+    }
+  },
+
+  // Get borrowing statistics
+  getBorrowingStats: async () => {
+    try {
+      const response = await api.get('/borrowings/stats');
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {

@@ -2,13 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   FaBook, 
-  FaUsers, 
   FaBookOpen,
   FaHome,
   FaSignOutAlt,
   FaUser,
   FaArrowRight,
-  FaList,
   FaUserCheck,
   FaCog
 } from 'react-icons/fa';
@@ -34,8 +32,7 @@ const SidebarAdmin = ({
   const menuItems = [
     { icon: <FaHome />, label: 'Dashboard', key: 'dashboard', link: '/admin/home' },
     { icon: <FaBook />, label: 'Books', key: 'books', link: '/admin/books' },
-    { icon: <FaUsers />, label: 'Users', key: 'users', link: '#' },
-    { icon: <FaBookOpen />, label: 'Borrows', key: 'borrows', link: '#' },
+    { icon: <FaBookOpen />, label: 'Borrows', key: 'borrows', link: '/admin/borrows' },
     { icon: <FaUserCheck />, label: 'Registration Requests', key: 'registration', link: '#' },
     { icon: <FaCog />, label: 'Settings', key: 'settings', link: '#' }
   ];

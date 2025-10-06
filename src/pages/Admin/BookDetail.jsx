@@ -191,7 +191,7 @@ const AdminBookDetail = () => {
                     }`}>
                       {book.image_url ? (
                         <img 
-                          src={book.image_url.startsWith('http') ? book.image_url : `http://172.22.11.208:3000${book.image_url}`} // Update with your server's IP address
+                          src={book.image_url.startsWith('http') ? book.image_url : `http://172.22.14.221:3000${book.image_url}`} // Update with your server's IP address
                           alt={book.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
