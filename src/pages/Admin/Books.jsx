@@ -8,7 +8,8 @@ import {
   FaTrash,
   FaEye,
   FaFilter,
-  FaTimes
+  FaTimes,
+  FaStar
 } from 'react-icons/fa';
 import { useTheme } from '../../hooks/useTheme.js';
 import { booksAPI, categoriesAPI } from '../../api/index.js';
@@ -446,6 +447,17 @@ const AdminBooks = () => {
                     }`}>
                       by {book.author}
                     </p>
+                    <div className={`flex items-center gap-1 mt-1 ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
+                      <FaStar className="text-yellow-500 text-xs" />
+                      <span className="text-xs">
+                        {book.average_rating ? parseFloat(book.average_rating).toFixed(1) : 'N/A'}
+                        {book.total_ratings > 0 && (
+                          <span className="ml-1">({book.total_ratings})</span>
+                        )}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Additional Info */}

@@ -10,7 +10,9 @@ import {
   FaBuilding,
   FaFileAlt,
   FaMapMarkerAlt,
-  FaLayerGroup
+  FaLayerGroup,
+  FaStar,
+  FaUser
 } from 'react-icons/fa';
 import { useTheme } from '../../hooks/useTheme.js';
 import { booksAPI } from '../../api/index.js';
@@ -476,6 +478,96 @@ const AdminBookDetail = () => {
                   </p>
                 </div>
               )}
+
+              {/* Rating Summary */}
+              <div className={`rounded-xl shadow-sm border p-6 ${
+                theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
+              }`}>
+                <h3 className={`text-lg font-semibold mb-4 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  Rating & Reviews
+                </h3>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex items-center gap-2">
+                    <FaStar className="text-yellow-500 text-xl" />
+                    <span className={`text-2xl font-bold ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {book.average_rating ? parseFloat(book.average_rating).toFixed(1) : 'N/A'}
+                    </span>
+                  </div>
+                  {book.total_ratings > 0 && (
+                    <span className={`text-sm ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
+                      Based on {book.total_ratings} review{book.total_ratings !== 1 ? 's' : ''}
+                    </span>
+                  )}
+                </div>
+
+                {/* Rating Comments */}
+                {book.rating_comments && book.rating_comments.length > 0 ? (
+                  <div className="space-y-4">
+                    <h4 className={`text-md font-medium ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      User Reviews
+                    </h4>
+                    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                      {book.rating_comments.map((comment, index) => (
+                        <div key={index} className="py-4 first:pt-0 last:pb-0">
+                          <div className="flex items-start gap-3">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                              theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
+                            }`}>
+                              <FaUser className={`text-sm ${
+                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              }`} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={`text-sm font-medium ${
+                                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                }`}>
+                                  {comment.user_name}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                  {[...Array(5)].map((_, i) => (
+                                    <FaStar
+                                      key={i}
+                                      className={`text-xs ${
+                                        i < comment.rating ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-600'
+                                      }`}
+                                    />
+                                  ))}
+                                </div>
+                                <span className={`text-xs ${
+                                  theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                                }`}>
+                                  {new Date(comment.rating_date).toLocaleDateString()}
+                                </span>
+                              </div>
+                              <p className={`text-sm ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                {comment.comment}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`text-center py-8 ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
+                    <FaStar className="mx-auto text-3xl mb-2 opacity-50" />
+                    <p>No reviews available for this book</p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </main>
