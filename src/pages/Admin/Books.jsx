@@ -380,7 +380,9 @@ const AdminBooks = () => {
           {/* Books Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {books && books.length > 0 ? books.map((book) => (
-              <div key={book.book_id} className={`group rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${
+              <div key={book.book_id} 
+                onClick={() => navigate(`/admin/books/${book.book_id}`)}
+                className={`group rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col cursor-pointer ${
                 theme === 'dark' ? 'bg-gray-800' : 'bg-white'
               }`}>
                 {/* Book Cover */}
@@ -409,8 +411,12 @@ const AdminBooks = () => {
                   {/* Overlay Information */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-white text-sm overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical'}}>
-                        {book.description || 'No description available.'}
+                      <p className="text-white text-sm overflow-hidden line-clamp-2" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical'}}>
+                        {book.description ? (
+                          book.description.length > 100 
+                            ? `${book.description.substring(0, 100)}...`
+                            : book.description
+                        ) : 'No description available.'}
                       </p>
                     </div>
                   </div>
@@ -479,7 +485,10 @@ const AdminBooks = () => {
                     theme === 'dark' ? 'border-gray-600' : 'border-gray-100'
                   }`}>
                     <button
-                      onClick={() => navigate(`/admin/books/${book.book_id}`)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/admin/books/${book.book_id}`);
+                      }}
                       className={`flex-1 inline-flex justify-center items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         theme === 'dark' 
                           ? 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white'
@@ -489,13 +498,19 @@ const AdminBooks = () => {
                       <FaEye className="mr-1.5" /> View
                     </button>
                     <button
-                      onClick={() => navigate(`/admin/books/edit/${book.book_id}`)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/admin/books/edit/${book.book_id}`);
+                      }}
                       className="flex-1 inline-flex justify-center items-center px-3 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors"
                     >
                       <FaEdit className="mr-1.5" /> Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(book.book_id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(book.book_id);
+                      }}
                       className="flex-1 inline-flex justify-center items-center px-3 py-2 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors"
                     >
                       <FaTrash className="mr-1.5" /> Delete
