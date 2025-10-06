@@ -123,12 +123,12 @@ const SidebarAdmin = ({
                 {!isSidebarCollapsed && <span className="font-medium">{item.label}</span>}
               </a>
               {item.key === 'registration' && pendingCount > 0 && !isSidebarCollapsed && (
-                <div className="absolute -top-4 -right-1">
+                <div className="absolute -top-1 -right-1">
                   <Badge badgeContent={pendingCount} color="primary" />
                 </div>
               )}
               {item.key === 'registration' && pendingCount > 0 && isSidebarCollapsed && (
-                <div className="absolute -top-4 -right-1">
+                <div className="absolute -top-1 -right-1">
                   <Badge badgeContent={pendingCount} color="primary" />
                 </div>
               )}
