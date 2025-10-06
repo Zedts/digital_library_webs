@@ -234,34 +234,47 @@ const UserHome = () => {
           </div>
 
           {/* Recommendations */}
-          <div className={`rounded-xl shadow-sm border p-6 ${
+          <div className={`rounded-xl shadow-sm border overflow-hidden ${
             theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
           }`}>
-            <h2 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-              Recommended for You
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+              <div className="flex items-center justify-between">
+                <h2 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                  Recommended for You
+                </h2>
+                <a href="#" className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
+                  View all <FaArrowRight className="text-xs" />
+                </a>
+              </div>
+            </div>
+
+            <div className="divide-y divide-gray-100 dark:divide-gray-700">
               {dashboardData?.recommendations?.length > 0 ? (
                 dashboardData.recommendations.map((book, index) => (
-                  <div key={index} className={`p-4 rounded-lg border transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 ${
-                    theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
-                  }`}>
-                    <h3 className={`font-semibold mb-1 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
-                      {book.title}
-                    </h3>
-                    <p className={`text-sm mb-2 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                      by {book.author}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-1">
-                        <FaStar className="text-yellow-500 text-xs" />
-                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                          {book.rating}
-                        </span>
+                  <div key={index} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <div className="flex items-start">
+                      <div className={`p-2 rounded-lg mr-4 ${
+                        theme === 'dark' ? 'bg-gray-700' : 'bg-blue-50'
+                      }`}>
+                        <FaBook className={`text-xl ${
+                          theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                        }`} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                          {book.title}
+                        </h4>
+                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                          by {book.author}
+                        </p>
+                        <div className="mt-1 flex items-center space-x-2">
+                          <div className="flex items-center space-x-1">
+                            <FaStar className="text-yellow-500 text-xs" />
+                            <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+                              {book.rating}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                       <button className="text-blue-500 hover:text-blue-600 text-sm font-medium">
                         View Details
@@ -270,7 +283,7 @@ const UserHome = () => {
                   </div>
                 ))
               ) : (
-                <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                <div className={`p-6 text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                   <FaBook className="mx-auto text-4xl mb-2 opacity-50" />
                   <p>No recommendations available</p>
                 </div>
