@@ -15,6 +15,7 @@ import AdminBookDetail from './pages/Admin/BookDetail'
 import AdminBorrows from './pages/Admin/Borrows'
 import AdminBorrowDetail from './pages/Admin/BorrowDetail'
 import AdminRegistrationRequests from './pages/Admin/RegistrationRequests'
+import AdminSettings from './pages/Admin/Settings'
 import './style/main.css'
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/admin/borrows" element={<AdminBorrows />} />
           <Route path="/admin/borrows/:id" element={<AdminBorrowDetail />} />
           <Route path="/admin/registration-requests" element={<AdminRegistrationRequests />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/user/home" element={<UserHome />} />
         </Routes>
         <ToastContainer
